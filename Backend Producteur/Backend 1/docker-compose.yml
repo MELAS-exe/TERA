@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 3001
+    ports:
+      - 3001:3001
+    environment:
+      DB_HOST: tera-cluster-instance-1.clas6e6iiazg.eu-north-1.rds.amazonaws.com
+      DB_PORT: 3306
+      DB_USER: tera
+      DB_PASSWORD: EnsaEpt18
+      DB_NAME: teradatabase
+    restart: always

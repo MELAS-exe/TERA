@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/795d0c32-e7f2-46c7-90be-b5c17d0e3d3d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/tera1848",
+    "appService.deploySubpath": "."
+}
