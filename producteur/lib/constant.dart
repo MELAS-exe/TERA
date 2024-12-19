@@ -7,9 +7,9 @@ const Color teraDark = Color.fromARGB(255, 54, 54, 54);
 const Color teraYellow = Color.fromARGB(255, 228, 219, 140);
 const Color teraDarkYellow = Color.fromARGB(255, 189, 183, 123);
 
-final URL1 = "https://xr2fwr3awt.eu-west-3.awsapprunner.com/";
-final URL2 = "https://pm25nfwzrm.eu-west-3.awsapprunner.com";
-final URL3 = "https://p3pzujvvxu.eu-west-3.awsapprunner.com";
+final URL1 = "https://bicqhzdwtq.eu-west-3.awsapprunner.com";
+final URL2 = "https://xqyeuzpjzx.eu-west-3.awsapprunner.com";
+final URL3 = "https://gpzgndj3kf.eu-west-3.awsapprunner.com";
 
 class ImageProduct extends StatelessWidget {
   final String itemType;

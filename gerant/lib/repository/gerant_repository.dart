@@ -17,7 +17,7 @@ import '../models/updateStock.dart';
 import '../shared_preference/gerant_data_manager.dart';
 
 class GerantRepository {
-  final String serverUrl = "https://yvhvcpdmet.eu-west-3.awsapprunner.com/tera/gerant";
+  final String serverUrl = "https://3jtewt5g3d.eu-west-3.awsapprunner.com/tera/gerant";
 
   Future<Gerant?> loginGerant(
       {required String id, required String password}) async {

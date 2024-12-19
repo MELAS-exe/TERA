@@ -1,0 +1,4 @@
+#Wed Dec 18 20:03:37 GMT 2024
+base.0=C\:\\Users\\depno\\OneDrive\\Bureau\\Documents\\Coding\\TERA-PROD\\TERA-ENSA-EPT\\producteur\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

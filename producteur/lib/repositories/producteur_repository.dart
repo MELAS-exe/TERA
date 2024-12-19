@@ -7,7 +7,7 @@ import '../shared_preferences/producteur_data_manager.dart';
 
 
 class ProducteurRepository{
-  final String serverUrl = "${URL1}tera/producteur";
+  final String serverUrl = "${URL1}/tera/producteur";
 
 
 
