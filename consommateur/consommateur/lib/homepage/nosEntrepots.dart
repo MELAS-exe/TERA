@@ -13,24 +13,33 @@ class NosEntrepots extends StatefulWidget {
 
 class _NosEntrepotsState extends State<NosEntrepots> {
   Future<List<EntrepotClass>?>? futureEntrepots;
-  List<EntrepotClass>? entrepotList;
   Future<List<String>?>? futureProduit;
   List<String>? produits;
   List<List<String>?>? listProduitsEntrepot;
+  Future<Map<EntrepotClass, List<String>>>? futureEntrepotMap;
+  Map<EntrepotClass, List<String>> entrepotMap = {};
 
   @override
   void initState() {
     super.initState();
-    _loadEntrepot();
+    _loadEntrepotAndProducts();
   }
 
-  Future<void> _loadEntrepot() async {
-    futureEntrepots = ConsommateurRepository().getAllEntrepot();
-    futureEntrepots?.then((entrepots) {
+  Future<void> _loadEntrepotAndProducts() async {
+    try {
+      final Map<EntrepotClass, List<String>> loadedMap = {};
+      final entrepots = await ConsommateurRepository().getAllEntrepot() ?? [];
+      for (var entrepot in entrepots) {
+        final produits = await ConsommateurRepository()
+            .getDistinctProductTypes(entrepot.entrepotid);
+        loadedMap[entrepot] = produits ?? [];
+      }
       setState(() {
-        entrepotList = entrepots ?? [];
+        entrepotMap = loadedMap;
       });
-    });
+    } catch (e) {
+      debugPrint("Erreur lors du chargement des entrepôts : $e");
+    }
   }
 
   @override
@@ -48,25 +57,21 @@ class _NosEntrepotsState extends State<NosEntrepots> {
         ),
         SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: entrepotList != null && entrepotList!.isNotEmpty
+            child: entrepotMap.isNotEmpty
                 ? SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                        children: entrepotList!.map((entrepot) {
-                      futureProduit = ConsommateurRepository()
-                          .getDistinctProductTypes(entrepot.entrepotid);
-                      futureProduit?.then((produitList) {
-                        setState(() {
-                          produits = produitList ??
-                              []; // Initialement, tous les entrepôts sont affichés
-                        });
-                      });
-                      return EntrePotItem(
-                          nom: (entrepot.entrepotnom).toString(),
+                      children: entrepotMap.entries.map((entry) {
+                        final entrepot = entry.key;
+                        final produits = entry.value;
+                        return EntrePotItem(
+                          nom: entrepot.entrepotnom.toString(),
                           imagePath: 'assets/keur-massar.jpg',
                           produits: produits,
-                          id: (entrepot.entrepotid).toString());
-                    }).toList()),
+                          id: entrepot.entrepotid.toString(),
+                        );
+                      }).toList(),
+                    ),
                   )
                 : Column(
                     children: [
@@ -164,28 +169,23 @@ class _EntrePotItemState extends State<EntrePotItem> {
                     height: 10,
                   ),
                   Wrap(
-                    children:
-                        widget.produits != null && widget.produits!.isNotEmpty
-                            ? widget.produits!.map((produit) {
-                                return Container(
-                                  margin: const EdgeInsets.only(right: 10),
-                                  width: Responsive().width(context, 10),
-                                  height: Responsive().width(context, 10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: ImageProduct(
-                                    itemType: produit,
-                                    imageScale: 18,
-                                  ),
-                                );
-                              }).toList()
-                            : [
-                                const Text(
-                                  '',
+                      children: widget.produits != null &&
+                              widget.produits!.isNotEmpty
+                          ? widget.produits!.map((produit) {
+                              return Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                width: Responsive().width(context, 10),
+                                height: Responsive().width(context, 10),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: ImageProduct(
+                                  itemType: produit,
+                                  imageScale: 18,
                                 ),
-                              ],
-                  )
+                              );
+                            }).toList()
+                          : [])
                 ],
               ),
             ],

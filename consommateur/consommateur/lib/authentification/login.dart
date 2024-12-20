@@ -224,10 +224,10 @@ class _LoginState extends State<Login> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    color: teraOrange,
-                    height: 22,
-                  )
+                  // Container(
+                  //   color: teraOrange,
+                  //   height: 22,
+                  // )
                 ],
               ),
             ),

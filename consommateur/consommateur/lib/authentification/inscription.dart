@@ -285,10 +285,10 @@ class _InscriptionState extends State<Inscription> {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  color: teraOrange,
-                  height: 22,
-                ),
+                // Container(
+                //   color: teraOrange,
+                //   height: 22,
+                // ),
               ],
             ),
           ),
